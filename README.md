@@ -31,6 +31,7 @@ Related projects:
 - `proceedings_xml.py`, script to model as XML text and metadata from HTML proceedings.
 - `translationse_filter.py`, script to classify utterances as original, translations and even by native speaker.
 - `treetagger.py`, script to tokenize, lemmatize and tag PoS using TreeTagger producing well-formed XML.
+- `extract_comparable.py`, script to extract a monolingual corpus from sentence-split XML.
 
 ## The pipeline
 
@@ -394,4 +395,13 @@ python translationese_filter.py -i /path/to/spanish/proceedings -o /path/to/outp
 
 # English originals in English proceedings by native speakers
 python translationese_filter.py -i /path/to/english/proceedings -o /path/to/output/dir -l en -n
+```
+
+## Extracted raw text to create the comparable (monolingual) corpus
+
+### Usage
+
+```shell
+# From XML files to a sentence-split monolingual file
+python extract_comparable.py /path/to/XML /path/to/outputfile
 ```
