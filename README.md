@@ -397,11 +397,11 @@ python translationese_filter.py -i /path/to/spanish/proceedings -o /path/to/outp
 python translationese_filter.py -i /path/to/english/proceedings -o /path/to/output/dir -l en -n
 ```
 
-## Extracted raw text to create the comparable (monolingual) corpus
+## Extracting raw text to create the comparable (monolingual) corpora
 
 ### Usage
 
 ```shell
 # From XML files to a sentence-split monolingual file
-python extract_comparable.py /path/to/XML /path/to/outputfile
+python extract_comparable.py /path/to/xml_sentences/language /path/to/outputfile
 ```
