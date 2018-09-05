@@ -4,6 +4,8 @@ This is a complete pipeline to create a comparable/parallel corpus made of Europ
 
 This pipeline has been tested in macOS Sierra, it should work in UNIX too. Basically, Python 3 is required for almost every script. Some Python modules and/or tools might be needed too. Check specific requirements for each script.
 
+The full corpus can be found here: [Europarl-UdS](http://fedora.clarin-d.uni-saarland.de/europarl-uds/).
+
 Related projects:
 
 - [LinkedEP](http://purl.org/linkedpolitics)/[The talk of Europe](http://www.talkofeurope.eu/): Plenary debates of the European Parliament as Linked Open Data.
