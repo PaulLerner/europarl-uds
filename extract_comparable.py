@@ -13,7 +13,7 @@ from os.path import isfile, join
 
 def create_arg_parser():
     """"Creates and returns the ArgumentParser object."""
-    parser = argparse.ArgumentParser(description='Extract sentence-split raw text from EPIC.')
+    parser = argparse.ArgumentParser(description='Extract raw text from XML sentence-split files.')
     parser.add_argument('inputDirectory',
                     help='Path to the input directory.')
     parser.add_argument('outputDirectory',
