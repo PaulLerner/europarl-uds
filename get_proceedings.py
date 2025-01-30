@@ -4,7 +4,7 @@ import os
 import argparse
 import requests
 import datetime
-
+from tqdm import tqdm
 
 class GetProceedings(object):
     """Get proceedings of the European Parliament."""
@@ -41,6 +41,7 @@ class GetProceedings(object):
         if self.dates is None:
             step = datetime.timedelta(days=1)
             dates = []
+            pbar = tqdm(total=(self.end_date-self.start_date).days)
             while self.start_date <= self.end_date:
                 date_as_string = self.start_date.strftime('%Y%m%d')
                 url = url_pattern.format(
@@ -48,8 +49,9 @@ class GetProceedings(object):
                     self.language,
                     self.language)
                 r = requests.get(url)
+                #print(url, r.status_code)
                 if r.status_code == requests.codes.ok:
-                    print(date_as_string)
+                    #print(date_as_string)
                     dates.append(self.start_date.strftime('%Y-%m-%d'))
                     ofname = "{}.{}.html".format(date_as_string, self.language)
                     ofpath = os.path.join(self.outdir, ofname)
@@ -57,6 +59,7 @@ class GetProceedings(object):
                         ohtml.write(r.content)
                     self.n_proceedings += 1
                 self.start_date += step
+                pbar.update(1)
             dates = '\n'.join(dates)
             with open('dates.{}.txt'.format(self.language), mode='w',
                       encoding='utf-8') as fdates:
@@ -89,19 +92,44 @@ class GetProceedings(object):
         parser.add_argument(
             "-l", "--language",
             required=True,
-            choices=['en', 'es', 'de', 'fr', 'it'],
+            choices=[
+                "BG",
+                "ES",
+                "CS",
+                "DA",
+                "DE",
+                "ET",
+                "EL",
+                "EN",
+                "FR",
+                "GA",
+                "HR",
+                "IT",
+                "LV",
+                "LT",
+                "HU",
+                "MT",
+                "NL",
+                "PL",
+                "PT",
+                "RO",
+                "SK",
+                "SL",
+                "FI",
+                "SV",
+            ],
             help="version to be downloaded.")
         parser.add_argument(
             '-s', "--startdate",
             required=False,
             type=self.valid_date,
-            default=datetime.datetime(1999, 7, 20),
+            default=datetime.datetime(1996, 1, 1),
             help="The Start Date - format YYYY-MM-DD")
         parser.add_argument(
             '-e', "--enddate",
             required=False,
             type=self.valid_date,
-            default=datetime.datetime(2012, 11, 22),
+            default=datetime.datetime(2025, 1, 30),
             help="The Start Date - format YYYY-MM-DD")
         parser.add_argument(
             '-d', "--dates",
