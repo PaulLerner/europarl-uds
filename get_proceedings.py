@@ -44,20 +44,25 @@ class GetProceedings(object):
             pbar = tqdm(total=(self.end_date-self.start_date).days)
             while self.start_date <= self.end_date:
                 date_as_string = self.start_date.strftime('%Y%m%d')
-                url = url_pattern.format(
-                    date_as_string,
-                    self.language,
-                    self.language)
-                r = requests.get(url)
-                #print(url, r.status_code)
-                if r.status_code == requests.codes.ok:
-                    #print(date_as_string)
-                    dates.append(self.start_date.strftime('%Y-%m-%d'))
-                    ofname = "{}.{}.html".format(date_as_string, self.language)
-                    ofpath = os.path.join(self.outdir, ofname)
-                    with open(ofpath, mode='wb') as ohtml:
-                        ohtml.write(r.content)
+                date_as_string_dashed = self.start_date.strftime('%Y-%m-%d')
+                ofname = "{}.{}.html".format(date_as_string, self.language)
+                ofpath = os.path.join(self.outdir, ofname)
+                if os.path.exists(ofpath):
+                    dates.append(date_as_string_dashed)
                     self.n_proceedings += 1
+                else:
+                    url = url_pattern.format(
+                        date_as_string,
+                        self.language,
+                        self.language)
+                    r = requests.get(url)
+                    #print(url, r.status_code)
+                    if r.status_code == requests.codes.ok:
+                        #print(date_as_string)
+                        dates.append(date_as_string_dashed)
+                        with open(ofpath, mode='wb') as ohtml:
+                            ohtml.write(r.content)
+                        self.n_proceedings += 1
                 self.start_date += step
                 pbar.update(1)
             dates = '\n'.join(dates)
