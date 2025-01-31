@@ -37,8 +37,7 @@ class GetMeps(object):
 
     def main(self):
         if self.fromfile is False:
-            all_meps_url = ("http://www.europarl.europa.eu/meps/en/xml.html" +
-                            "?query=full&filter=all&leg=0")
+            all_meps_url = ("https://www.europarl.europa.eu/meps/en/full-list/xml/a")
             all_meps_r = requests.get(all_meps_url)
             all_meps_xml = all_meps_r.content
             all_meps = etree.parse(BytesIO(all_meps_xml))
