@@ -37,7 +37,7 @@ class GetMeps(object):
 
     def main(self):
         if self.fromfile is False:
-            all_meps_url = ("https://www.europarl.europa.eu/meps/en/full-list/xml/a")
+            all_meps_url = ("https://www.europarl.europa.eu/meps/en/full-list/xml")
             all_meps_r = requests.get(all_meps_url)
             all_meps_xml = all_meps_r.content
             all_meps = etree.parse(BytesIO(all_meps_xml))
@@ -58,6 +58,7 @@ class GetMeps(object):
             all_mep_ids = all_mep_ids.strip()
             remaining_ids = set(all_mep_ids.split('\n'))
             ids_to_download = set(remaining_ids)
+        # FIXME this seems to have changed
         url_pattern = ("http://www.europarl.europa.eu/meps/en/" +
                        "{}/{}_history.html")
         for id in ids_to_download:
